@@ -17,7 +17,7 @@ class VerifyPinViewController<T extends PinFragmentImplement> extends BaseViewCo
     @Override
     void initUI() {
         String verify = String.format(
-                mContext.getString(R.string.verify_n_digit_pin), mPinputView.getPinLen());
+                mContext.getString(R.string.verify_passcode));
         mHeaderText.setText(verify);
     }
 

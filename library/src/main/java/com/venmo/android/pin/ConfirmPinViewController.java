@@ -16,8 +16,7 @@ class ConfirmPinViewController<T extends PinFragmentImplement> extends BaseViewC
 
     @Override
     void initUI() {
-        String confirm = String.format(mContext.getString(R.string.confirm_n_digit_pin),
-                mPinputView.getPinLen());
+        String confirm = String.format(mContext.getString(R.string.confirm_passcode));
         mHeaderText.setText(confirm);
     }
 

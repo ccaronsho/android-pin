@@ -98,12 +98,12 @@ public class PinFragmentTests extends ActivityInstrumentationTestCase2<TestActiv
 
         int len = getPinputView().getPinLen();
 
-        String confirmText = String.format(mSolo.getString(R.string.confirm_n_digit_pin), len);
+        String confirmText = String.format(mSolo.getString(R.string.confirm_passcode));
         mSolo.waitForText(confirmText);
 
         clickOnKey(Key.TWO, Key.TWO, Key.TWO, Key.TWO);
 
-        String createText = String.format(mSolo.getString(R.string.create_n_digit_pin), len);
+        String createText = String.format(mSolo.getString(R.string.create_passcode));
         mSolo.waitForText(createText);
         try {
             assertPinSaved("1111");
@@ -224,7 +224,7 @@ public class PinFragmentTests extends ActivityInstrumentationTestCase2<TestActiv
 
     private void confirmCreationWithPin(final TestActivity activity, Key... keys) {
         int len = getPinputView().getPinLen();
-        String confirmText = String.format(mSolo.getString(R.string.confirm_n_digit_pin), len);
+        String confirmText = String.format(mSolo.getString(R.string.confirm_passcode));
         assertTrue(mSolo.waitForText(confirmText));
 
         clickOnKey(keys);

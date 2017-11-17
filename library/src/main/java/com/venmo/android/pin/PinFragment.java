@@ -97,6 +97,10 @@ public class PinFragment extends Fragment implements PinFragmentImplement {
         mViewController = controller;
     }
 
+    public void notifyCancelled() {
+        mListener.onCancelled();
+    }
+
     public void notifyValid() {
         mListener.onValidated();
     }

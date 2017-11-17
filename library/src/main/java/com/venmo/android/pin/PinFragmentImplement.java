@@ -20,6 +20,8 @@ public interface PinFragmentImplement {
 
     void setDisplayType(PinDisplayType type);
 
+    void notifyCancelled();
+
     void notifyValid();
 
     void notifyCreated();

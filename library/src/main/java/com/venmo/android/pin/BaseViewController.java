@@ -73,6 +73,8 @@ abstract class BaseViewController<T extends PinFragmentImplement> {
                         return;
                     }
                     e.delete(len - 1, e.length());
+                } else if (primaryCode == PinKeyboardView.KEYCODE_CANCEL) {
+                    mPinFragment.notifyCancelled();
                 } else {
                     mPinputView.getText().append((char) primaryCode);
                 }

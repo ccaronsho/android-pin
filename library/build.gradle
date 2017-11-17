@@ -1,14 +1,12 @@
-import com.android.builder.core.BuilderConstants
-
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.2'
 
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 23
+        minSdkVersion 21
+        targetSdkVersion 26
         versionCode 3
         versionName "1.2.0"
     }
@@ -19,20 +17,9 @@ android {
         }
     }
 }
-android.libraryVariants.all { variant ->
-    def name = variant.buildType.name
-    if (!name.equals(BuilderConstants.DEBUG)) {
-        def task = project.tasks.create "jar${name.capitalize()}", Jar
-        task.dependsOn variant.javaCompile
-        task.from variant.javaCompile.destinationDir
-        artifacts.add('archives', task);
-    }
-}
 
 dependencies {
-    compile "com.android.support:support-v4:23.4.0"
-    compile "com.android.support:appcompat-v7:23.4.0"
+    compile "com.android.support:support-v4:26.1.0"
+    compile "com.android.support:appcompat-v7:26.1.0"
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.2.1'
 }
-
-apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'

@@ -24,6 +24,7 @@ import java.util.List;
 public class PinKeyboardView extends KeyboardView {
 
     public static final int KEYCODE_DELETE = -5;
+    public static final int KEYCODE_CANCEL = -4;
     private Drawable mKeyBackgroundDrawable;
     private boolean mShowUnderline;
     private int mUnderlinePadding;
@@ -49,22 +50,16 @@ public class PinKeyboardView extends KeyboardView {
         Resources res = getResources();
         mKeyBackgroundDrawable = a.getDrawable(R.styleable.PinKeyboardView_pinkeyboardview_keyBackground);
         mShowUnderline = a.getBoolean(R.styleable.PinKeyboardView_pinkeyboardview_showUnderline, false);
-        mUnderlinePadding =
-                a.getDimensionPixelSize(R.styleable.PinKeyboardView_pinkeyboardview_underlinePadding,
-                        res.getDimensionPixelSize(R.dimen.keyboard_underline_padding));
-        int textSize = a.getDimensionPixelSize(R.styleable.PinKeyboardView_pinkeyboardview_textSize,
-                res.getDimensionPixelSize(R.dimen.pin_keyboard_default_text_size));
+        mUnderlinePadding = a.getDimensionPixelSize(R.styleable.PinKeyboardView_pinkeyboardview_underlinePadding, res.getDimensionPixelSize(R.dimen.keyboard_underline_padding));
+        int textSize = a.getDimensionPixelSize(R.styleable.PinKeyboardView_pinkeyboardview_textSize, res.getDimensionPixelSize(R.dimen.pin_keyboard_default_text_size));
         int textColor = a.getColor(R.styleable.PinKeyboardView_pinkeyboardview_textColor, Color.BLACK);
-        int underlineColor = a.getColor(R.styleable.PinKeyboardView_pinkeyboardview_keyUnderlineColor,
-                getResources().getColor(R.color.pin_light_gray_50));
+        int underlineColor = a.getColor(R.styleable.PinKeyboardView_pinkeyboardview_keyUnderlineColor, getResources().getColor(R.color.pin_light_gray_50));
         a.recycle();
 
         mPaint = new Paint();
         mPaint.setTextAlign(Paint.Align.CENTER);
         mPaint.setAntiAlias(true);
-        if (VERSION.SDK_INT >= VERSION_CODES.JELLY_BEAN) {
-            mPaint.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
-        }
+        mPaint.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
         mPaint.setTextSize(textSize);
         mPaint.setColor(textColor);
 
@@ -82,10 +77,18 @@ public class PinKeyboardView extends KeyboardView {
 
     @Override
     public void onDraw(Canvas canvas) {
-        Drawable keyBackground = mKeyBackgroundDrawable;
         List<Key> keys = getKeyboard().getKeys();
 
         for (Key key : keys) {
+            final int keyCode = key.codes.length > 0 ? key.codes[0] : 56000;
+            final boolean isCancelOrDeleteKey = keyCode == -4 || keyCode == -5;
+            final Drawable keyBackground;
+            if (isCancelOrDeleteKey) {
+                keyBackground = getResources().getDrawable(R.drawable.label_key_selector);
+            } else {
+                keyBackground = mKeyBackgroundDrawable;
+            }
+
             if (keyBackground != null && (key.icon != null || key.label != null)) {
                 int[] state = key.getCurrentDrawableState();
                 keyBackground.setState(state);
@@ -96,25 +99,17 @@ public class PinKeyboardView extends KeyboardView {
                 String label = key.label.toString();
                 float desiredW = mPaint.measureText(label);
                 float desiredH = mPaint.measureText(label);
+                float yPadding = isCancelOrDeleteKey ? 0 : (desiredH / 2);
                 float x = key.x + (key.width / 2);
-                float y = key.y + (key.height / 2) + (desiredH / 2);
+                float y = key.y + (key.height / 2) + yPadding;
                 canvas.drawText(label, x, y, mPaint);
                 if (mShowUnderline) {
-                    canvas.drawLine(
-                            key.x + mUnderlinePadding,
-                            key.y + key.height - mUnderlinePadding,
-                            key.x + key.width - mUnderlinePadding,
-                            key.y + key.height - mUnderlinePadding,
-                            mUnderlinePaint);
+                    canvas.drawLine(key.x + mUnderlinePadding, key.y + key.height - mUnderlinePadding, key.x + key.width - mUnderlinePadding, key.y + key.height - mUnderlinePadding, mUnderlinePaint);
                 }
             } else if (key.icon != null) {
                 final int startX = key.x + (key.width - key.icon.getIntrinsicWidth()) / 2;
                 final int startY = key.y + (key.height - key.icon.getIntrinsicHeight()) / 2;
-                key.icon.setBounds(
-                        startX,
-                        startY,
-                        startX + key.icon.getIntrinsicWidth(),
-                        startY + key.icon.getIntrinsicHeight());
+                key.icon.setBounds(startX, startY, startX + key.icon.getIntrinsicWidth(), startY + key.icon.getIntrinsicHeight());
                 key.icon.draw(canvas);
             }
         }
