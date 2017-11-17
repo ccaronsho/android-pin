@@ -4,20 +4,20 @@
     xmlns:pin="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     android:layout_marginTop="@dimen/fragment_padding"
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/pin_header_label"
-        style="@style/LightIfPossible"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/content_padding"
         android:layout_marginTop="@dimen/content_padding"
         android:gravity="center"
         android:textStyle="bold"
-        android:textColor="@color/text_gray"
+        android:textColor="@color/pinlibrary_text_gray"
         android:textSize="@dimen/pin_header_label_size" />
 
     <FrameLayout
@@ -31,15 +31,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:letterSpacing="3.0"
-            android:background="@drawable/rounded_rect_gray"
+            android:background="@drawable/pinlibrary_rounded_rect_gray"
             android:cursorVisible="false"
             android:paddingBottom="3dp"
             android:paddingEnd="35dp"
             android:paddingStart="35dp"
             android:paddingTop="3dp"
             android:textSize="@dimen/pinputview_default_text_size"
-            pin:pinputview_backgroundColor="@color/text_gray"
-            pin:pinputview_foregroundColor="@color/pin_blue" />
+            pin:pinputview_backgroundColor="@color/pinlibrary_text_gray"
+            pin:pinputview_foregroundColor="@color/pinlibrary_blue" />
 
         <ProgressBar
             android:id="@+id/pin_progress_spinner"
@@ -57,8 +57,8 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/keyboard_padding"
         android:background="@android:color/transparent"
-        pin:pinkeyboardview_keyBackground="@drawable/pin_key_selector"
-        pin:pinkeyboardview_textColor="@color/text_gray" />
+        pin:pinkeyboardview_keyBackground="@drawable/pinlibrary_pin_key_selector"
+        pin:pinkeyboardview_textColor="@color/pinlibrary_text_gray" />
 
 </LinearLayout>
 

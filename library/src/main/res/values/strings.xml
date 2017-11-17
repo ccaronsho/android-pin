@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">Android Pin</string>
-    <string name="verify_passcode">Enter Passcode</string>
-    <string name="create_passcode">Enter a Passcode</string>
-    <string name="confirm_passcode">Confirm Passcode</string>
-    <string name="pin_mismatch">Passcode did not match</string>
-    <string name="pin_created">Passcode created</string>
-    <string name="saving_pin">Saving Passcode</string>
-    <string name="async_save_error">Error saving Passcode</string>
+    <string name="pinlibrary_verify_passcode">Enter Passcode</string>
+    <string name="pinlibrary_create_passcode">Enter a Passcode</string>
+    <string name="pinlibrary_confirm_passcode">Confirm Passcode</string>
+    <string name="pinlibrary_pin_mismatch">Passcode did not match</string>
+    <string name="pinlibrary_pin_created">Passcode created</string>
+    <string name="pinlibrary_saving_pin">Saving Passcode</string>
+    <string name="pinlibrary_async_save_error">Error saving Passcode</string>
 </resources>

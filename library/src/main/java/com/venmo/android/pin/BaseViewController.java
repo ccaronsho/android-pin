@@ -96,7 +96,7 @@ abstract class BaseViewController<T extends PinFragmentImplement> {
     }
 
     protected Animator getOutAnim(View v) {
-        float start = v.getX();
+        float start = 0;
         float end = -v.getWidth();
         ObjectAnimator out = ObjectAnimator.ofFloat(v, "x", start, end);
         out.setDuration(150);
@@ -105,8 +105,8 @@ abstract class BaseViewController<T extends PinFragmentImplement> {
     }
 
     protected Animator getInAnim(View v) {
-        float start = mRootView.getWidth();
-        float end = (start / 2) - (v.getWidth() / 2);
+        float start = v.getWidth();
+        float end = 0;
         final ObjectAnimator in = ObjectAnimator.ofFloat(v, "x", start, end);
         in.setDuration(150);
         in.setInterpolator(new DecelerateInterpolator());

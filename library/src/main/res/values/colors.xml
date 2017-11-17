@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="mask">#88000000</color>
-    <color name="text_gray">#bbbbbb</color>
-    <color name="pin_blue">#064876</color>
-    <color name="pin_light_gray_50">#55CCCCCC</color>
+    <color name="pinlibrary_mask">#88000000</color>
+    <color name="pinlibrary_text_gray">#cccccc</color>
+    <color name="pinlibrary_blue">#064876</color>
+    <color name="pinlibrary_light_gray_50">#55CCCCCC</color>
 </resources>

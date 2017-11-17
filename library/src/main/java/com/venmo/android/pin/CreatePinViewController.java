@@ -13,7 +13,7 @@ class CreatePinViewController<T extends PinFragmentImplement> extends BaseViewCo
 
     @Override
     void initUI() {
-        String create = String.format(mContext.getString(R.string.create_passcode));
+        String create = String.format(mContext.getString(R.string.pinlibrary_create_passcode));
         mHeaderText.setText(create);
     }
 

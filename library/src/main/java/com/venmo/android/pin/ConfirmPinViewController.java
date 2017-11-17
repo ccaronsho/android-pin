@@ -16,7 +16,7 @@ class ConfirmPinViewController<T extends PinFragmentImplement> extends BaseViewC
 
     @Override
     void initUI() {
-        String confirm = String.format(mContext.getString(R.string.confirm_passcode));
+        String confirm = String.format(mContext.getString(R.string.pinlibrary_confirm_passcode));
         mHeaderText.setText(confirm);
     }
 
@@ -28,7 +28,7 @@ class ConfirmPinViewController<T extends PinFragmentImplement> extends BaseViewC
                 if (submission.equals(mTruthString)) {
                     handleSave(submission);
                 } else {
-                    Toast.makeText(mContext, mContext.getString(R.string.pin_mismatch),
+                    Toast.makeText(mContext, mContext.getString(R.string.pinlibrary_pin_mismatch),
                             Toast.LENGTH_SHORT).show();
                     resetToCreate();
                     view.showErrorAndClear();
@@ -41,7 +41,7 @@ class ConfirmPinViewController<T extends PinFragmentImplement> extends BaseViewC
         PinSaver saver = getConfig().getPinSaver();
         if (saver instanceof AsyncSaver) {
             getOutAndInAnim(mPinputView, mProgressBar).start();
-            mHeaderText.setText(R.string.saving_pin);
+            mHeaderText.setText(R.string.pinlibrary_saving_pin);
             runAsync(new Runnable() {
                 @Override
                 public void run() {
@@ -54,7 +54,7 @@ class ConfirmPinViewController<T extends PinFragmentImplement> extends BaseViewC
                             }
                         });
                     } catch (Exception e) {
-                        generalErrorAsync(mPinFragment.getString(R.string.async_save_error));
+                        generalErrorAsync(mPinFragment.getString(R.string.pinlibrary_async_save_error));
                     }
                 }
             });

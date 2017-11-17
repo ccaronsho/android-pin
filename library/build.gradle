@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
 
+def aarName = "pinlibrary.aar"
+
 android {
     compileSdkVersion 26
     buildToolsVersion '26.0.2'
@@ -7,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 26
-        versionCode 3
-        versionName "1.2.0"
+        versionCode 4
+        versionName "1.2.1"
     }
     buildTypes {
         release {
@@ -16,6 +18,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    libraryVariants.all { variant ->
+        variant.outputs.all { output ->
+            output.outputFileName = "${aarName}"
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
 }
 
 dependencies {

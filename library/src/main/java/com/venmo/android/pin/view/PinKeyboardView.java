@@ -12,8 +12,6 @@ import android.graphics.drawable.Drawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.Keyboard.Key;
 import android.inputmethodservice.KeyboardView;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
@@ -53,7 +51,7 @@ public class PinKeyboardView extends KeyboardView {
         mUnderlinePadding = a.getDimensionPixelSize(R.styleable.PinKeyboardView_pinkeyboardview_underlinePadding, res.getDimensionPixelSize(R.dimen.keyboard_underline_padding));
         int textSize = a.getDimensionPixelSize(R.styleable.PinKeyboardView_pinkeyboardview_textSize, res.getDimensionPixelSize(R.dimen.pin_keyboard_default_text_size));
         int textColor = a.getColor(R.styleable.PinKeyboardView_pinkeyboardview_textColor, Color.BLACK);
-        int underlineColor = a.getColor(R.styleable.PinKeyboardView_pinkeyboardview_keyUnderlineColor, getResources().getColor(R.color.pin_light_gray_50));
+        int underlineColor = a.getColor(R.styleable.PinKeyboardView_pinkeyboardview_keyUnderlineColor, getResources().getColor(R.color.pinlibrary_light_gray_50));
         a.recycle();
 
         mPaint = new Paint();
@@ -84,7 +82,7 @@ public class PinKeyboardView extends KeyboardView {
             final boolean isCancelOrDeleteKey = keyCode == -4 || keyCode == -5;
             final Drawable keyBackground;
             if (isCancelOrDeleteKey) {
-                keyBackground = getResources().getDrawable(R.drawable.label_key_selector);
+                keyBackground = getResources().getDrawable(R.drawable.pinlibrary_label_key_selector);
             } else {
                 keyBackground = mKeyBackgroundDrawable;
             }
