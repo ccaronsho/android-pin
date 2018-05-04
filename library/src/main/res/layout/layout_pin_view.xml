@@ -1,64 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:pin="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    android:layout_marginTop="@dimen/fragment_padding"
-    android:background="@android:color/transparent"
-    android:orientation="vertical">
+    android:background="@drawable/app_background">
 
-    <TextView
-        android:id="@+id/pin_header_label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/content_padding"
-        android:layout_marginTop="@dimen/content_padding"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="@color/pinlibrary_text_gray"
-        android:textSize="@dimen/pin_header_label_size" />
-
-    <FrameLayout
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/pin_layout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-
-        <com.venmo.android.pin.view.PinputView
-            android:id="@+id/pin_pinputview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:letterSpacing="3.0"
-            android:background="@drawable/pinlibrary_rounded_rect_gray"
-            android:cursorVisible="false"
-            android:paddingBottom="3dp"
-            android:paddingEnd="35dp"
-            android:paddingStart="35dp"
-            android:paddingTop="3dp"
-            android:textSize="@dimen/pinputview_default_text_size"
-            pin:pinputview_backgroundColor="@color/pinlibrary_text_gray"
-            pin:pinputview_foregroundColor="@color/pinlibrary_blue" />
-
-        <ProgressBar
-            android:id="@+id/pin_progress_spinner"
-            android:layout_width="@dimen/pin_view_progressbar_size"
-            android:layout_height="@dimen/pin_view_progressbar_size"
-            android:layout_gravity="center"
-            android:visibility="invisible" />
-
-    </FrameLayout>
-
-    <com.venmo.android.pin.view.PinKeyboardView
-        android:id="@+id/pin_keyboard"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/keyboard_padding"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/fragment_padding"
         android:background="@android:color/transparent"
-        pin:pinkeyboardview_keyBackground="@drawable/pinlibrary_pin_key_selector"
-        pin:pinkeyboardview_textColor="@color/pinlibrary_text_gray" />
+        android:orientation="vertical">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/pin_header_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:textColor="@color/pinlibrary_text_gray"
+            android:textSize="@dimen/pin_header_label_size"
+            android:textStyle="bold"
+            pin:layout_constraintEnd_toEndOf="parent"
+            pin:layout_constraintStart_toStartOf="parent"
+            pin:layout_constraintTop_toTopOf="parent" />
 
+        <FrameLayout
+            android:id="@+id/input_view_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/keyboard_padding"
+            pin:layout_constraintEnd_toEndOf="parent"
+            pin:layout_constraintStart_toStartOf="parent"
+            pin:layout_constraintTop_toBottomOf="@id/pin_header_label">
+
+            <com.venmo.android.pin.view.PinputView
+                android:id="@+id/pin_pinputview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/pinlibrary_rounded_rect_gray"
+                android:cursorVisible="false"
+                android:letterSpacing="3.0"
+                android:paddingBottom="3dp"
+                android:paddingEnd="35dp"
+                android:paddingStart="35dp"
+                android:paddingTop="3dp"
+                android:textSize="@dimen/pinputview_default_text_size"
+                pin:pinputview_backgroundColor="@color/pinlibrary_blue"
+                pin:pinputview_foregroundColor="@color/pinlibrary_text_gray" />
+
+            <ProgressBar
+                android:id="@+id/pin_progress_spinner"
+                android:layout_width="@dimen/pin_view_progressbar_size"
+                android:layout_height="@dimen/pin_view_progressbar_size"
+                android:layout_gravity="center"
+                android:visibility="invisible" />
+
+        </FrameLayout>
+
+        <com.venmo.android.pin.view.PinKeyboardView
+            android:id="@+id/pin_keyboard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/keyboard_padding"
+            android:layout_marginBottom="@dimen/keyboard_padding"
+            android:background="@android:color/transparent"
+            pin:layout_constraintBottom_toBottomOf="parent"
+            pin:layout_constraintEnd_toEndOf="parent"
+            pin:layout_constraintStart_toStartOf="parent"
+            pin:layout_constraintTop_toBottomOf="@id/input_view_container"
+            pin:pinkeyboardview_keyBackground="@drawable/pinlibrary_pin_key_selector"
+            pin:pinkeyboardview_textColor="@color/pinlibrary_text_gray" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</FrameLayout>

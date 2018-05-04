@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Android Pin</string>
-    <string name="pinlibrary_verify_passcode">Enter Passcode</string>
-    <string name="pinlibrary_create_passcode">Enter a Passcode</string>
+    <string name="pinlibrary_verify_passcode">Enter your Passcode</string>
+    <string name="pinlibrary_create_passcode">Enter new Passcode</string>
     <string name="pinlibrary_confirm_passcode">Confirm Passcode</string>
     <string name="pinlibrary_pin_mismatch">Passcode did not match</string>
     <string name="pinlibrary_pin_created">Passcode created</string>

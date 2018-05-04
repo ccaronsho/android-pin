@@ -3,12 +3,12 @@ apply plugin: 'com.android.library'
 def aarName = "pinlibrary.aar"
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 27
+    buildToolsVersion '27.0.3'
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 4
         versionName "1.2.1"
     }
@@ -32,7 +32,8 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:support-v4:26.1.0"
-    compile "com.android.support:appcompat-v7:26.1.0"
+    compile "com.android.support:support-v4:27.1.1"
+    compile "com.android.support:appcompat-v7:27.1.1"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.2.1'
 }

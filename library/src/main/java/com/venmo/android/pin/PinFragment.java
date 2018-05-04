@@ -1,16 +1,18 @@
 package com.venmo.android.pin;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.app.DialogFragment;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 
-public class PinFragment extends Fragment implements PinFragmentImplement {
+public class PinFragment extends DialogFragment implements PinFragmentImplement {
 
+    public static final String TAG = PinFragment.class.getCanonicalName();
     private static final String KEY_FRAGMENT_VIEW_TYPE = "com.venmo.input_fragment_view_type";
 
     private PinListener mListener;
@@ -19,28 +21,29 @@ public class PinFragment extends Fragment implements PinFragmentImplement {
     private PinFragmentConfiguration mConfig;
     private View mRootView;
 
-    public static PinFragment newInstanceForVerification() {
-        return newInstanceForVerification(null);
+    public static PinFragment newInstanceForVerification(PinListener listener) {
+        return newInstanceForVerification(listener, null);
     }
 
-    public static PinFragment newInstanceForVerification(PinFragmentConfiguration config) {
-        return newInstance(PinDisplayType.VERIFY, config);
+    public static PinFragment newInstanceForVerification(PinListener listener, PinFragmentConfiguration config) {
+        return newInstance(listener, PinDisplayType.VERIFY, config);
     }
 
-    public static PinFragment newInstanceForCreation() {
-        return newInstanceForCreation(null);
+    public static PinFragment newInstanceForCreation(PinListener listener) {
+        return newInstanceForCreation(listener, null);
     }
 
-    public static PinFragment newInstanceForCreation(PinFragmentConfiguration config) {
-        return newInstance(PinDisplayType.CREATE, config);
+    public static PinFragment newInstanceForCreation(PinListener listener, PinFragmentConfiguration config) {
+        return newInstance(listener, PinDisplayType.CREATE, config);
     }
 
-    private static PinFragment newInstance(PinDisplayType type, PinFragmentConfiguration config) {
+    private static PinFragment newInstance(PinListener listener, PinDisplayType type, PinFragmentConfiguration config) {
         PinFragment instance = new PinFragment();
         Bundle bundle = new Bundle();
         bundle.putSerializable(KEY_FRAGMENT_VIEW_TYPE, type);
         instance.setArguments(bundle);
         instance.setConfig(config);
+        instance.mListener = listener;
         return instance;
     }
 
@@ -48,29 +51,25 @@ public class PinFragment extends Fragment implements PinFragmentImplement {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
+        setStyle(android.support.v4.app.DialogFragment.STYLE_NORMAL, R.style.PinDialogWithTransparentBackground);
         Bundle args = getArguments();
         mPinDisplayType = (PinDisplayType) args.getSerializable(KEY_FRAGMENT_VIEW_TYPE);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        mRootView = inflater.inflate(R.layout.layout_pin_view, container, false);
-        setDisplayType(mPinDisplayType);
-        initViewController();
-        return mRootView;
+    public void show(Activity activity) {
+        activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        show(activity.getFragmentManager(), TAG);
     }
 
     @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (!(activity instanceof PinListener)) {
-            throw new ClassCastException(
-                    "Hosting activity must implement PinFragment.Listener");
-        } else {
-            mListener = (PinListener) activity;
-            if (mConfig == null) setConfig(new PinFragmentConfiguration(getActivity()));
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        mRootView = inflater.inflate(R.layout.layout_pin_view, container, false);
+        if (mConfig == null) {
+            setConfig(new PinFragmentConfiguration(getActivity()));
         }
+        setDisplayType(mPinDisplayType);
+        initViewController();
+        return mRootView;
     }
 
     @Override
@@ -125,8 +124,7 @@ public class PinFragment extends Fragment implements PinFragmentImplement {
                 mViewController.refresh(mRootView);
                 break;
             default:
-                throw new IllegalStateException(
-                        "Invalid DisplayType " + mPinDisplayType.toString());
+                throw new IllegalStateException("Invalid DisplayType " + mPinDisplayType.toString());
         }
     }
 

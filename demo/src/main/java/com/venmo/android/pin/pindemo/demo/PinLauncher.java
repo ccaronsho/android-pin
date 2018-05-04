@@ -1,36 +1,56 @@
 package com.venmo.android.pin.pindemo.demo;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.app.Activity;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
+import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
-public class PinLauncher extends Activity {
+import com.venmo.android.pin.PinFragment;
+import com.venmo.android.pin.PinListener;
+
+public class PinLauncher extends Activity implements PinListener {
+
+    private PinFragment pinFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(R.layout.activity_pin_launcher);
-
-        final Intent launchIntent = new Intent();
 
         findViewById(R.id.sdk_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchIntent.setClass(PinLauncher.this, PinDemoActivity.class);
-
-                startActivity(launchIntent);
-            }
-        });
-
-        findViewById(R.id.support_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                launchIntent.setClass(PinLauncher.this, PinSupportDemoActivity.class);
-
-                startActivity(launchIntent);
+                pinFragment = PinFragment.newInstanceForCreation(PinLauncher.this);
+                pinFragment.show(PinLauncher.this);
             }
         });
     }
 
+    @Override
+    public void onCancelled() {
+        if (pinFragment != null) {
+            pinFragment.dismiss();
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        }
+    }
+
+    @Override
+    public void onValidated() {
+        Toast.makeText(this, "Validated Passcode!", Toast.LENGTH_SHORT).show();
+        onCancelled();
+    }
+
+    @Override
+    public void onPinCreated() {
+        Toast.makeText(this, "Created Passcode!", Toast.LENGTH_SHORT).show();
+        onCancelled();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+    }
 }
