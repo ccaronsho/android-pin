@@ -56,7 +56,7 @@ public class PinFragment extends DialogFragment implements PinFragmentImplement 
         mPinDisplayType = (PinDisplayType) args.getSerializable(KEY_FRAGMENT_VIEW_TYPE);
     }
 
-    public void show(Activity activity) {
+    public void start(Activity activity) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         show(activity.getFragmentManager(), TAG);
     }

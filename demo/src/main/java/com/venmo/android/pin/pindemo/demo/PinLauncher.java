@@ -24,7 +24,7 @@ public class PinLauncher extends Activity implements PinListener {
             @Override
             public void onClick(View v) {
                 pinFragment = PinFragment.newInstanceForCreation(PinLauncher.this);
-                pinFragment.show(PinLauncher.this);
+                pinFragment.start(PinLauncher.this);
             }
         });
     }
