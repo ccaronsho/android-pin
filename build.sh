@@ -10,12 +10,9 @@ echo "########################################################## Building aar ##
 echo "######################################################################################################################################################"
 sh ./gradlew :library:assembleRelease --stacktrace
 echo "########################################################## Copying aar ###############################################################################"
-cp library/build/outputs/aar/*.aar aar/
+cp  library/build/outputs/aar/*.aar aar/
 
-echo "You can find the aar file under 'aar'. Copy it to your project and add following lines to your build.gradle."
-echo "repositories {
-    flatDir {
-        dirs 'libs'
-    }
-}"
-echo "Add compile 'com.venmo.android.pin:pinlibrary:1.2.1@aar' under dependencies."
+echo "You can find the aar file under 'aar'."
+echo "########################################################## Uploading aar ###############################################################################"
+echo "Uploading Library to ShoCard Nexus Repository..."
+sh ./gradlew :library:uploadArchives --stacktrace

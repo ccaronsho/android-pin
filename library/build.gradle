@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven'
 
 def aarName = "pinlibrary"
 
@@ -9,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 4
-        versionName "1.2.2"
+        versionCode project.ext.versionCode
+        versionName project.ext.versionName
         version = android.defaultConfig.versionName
     }
     buildTypes {
@@ -35,6 +36,19 @@ android {
 dependencies {
     implementation "com.android.support:support-v4:27.1.1"
     implementation "com.android.support:appcompat-v7:27.1.1"
-    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     androidTestImplementation 'com.jayway.android.robotium:robotium-solo:5.2.1'
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: "https://nexus.shocard.io/repository/shocard-android") {
+                authentication(userName: "${project.hasProperty('nexusUsername') ? project.property('nexusUsername') : System.getenv("nexusUsername")}", password: "${project.hasProperty('nexusPassword') ? project.property('nexusPassword') : System.getenv("nexusPassword")}")
+                pom.groupId = "com.shocard"
+                pom.artifactId = "${aarName}"
+                pom.version = project.ext.versionName
+            }
+        }
+    }
 }
