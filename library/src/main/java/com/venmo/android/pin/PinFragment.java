@@ -3,6 +3,7 @@ package com.venmo.android.pin;
 import android.app.Activity;
 import android.app.DialogFragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -97,15 +98,24 @@ public class PinFragment extends DialogFragment implements PinFragmentImplement 
     }
 
     public void notifyCancelled() {
-        mListener.onCancelled();
+        if (mListener != null) {
+            mListener.onCancelled();
+            mListener = null;
+        }
     }
 
     public void notifyValid() {
-        mListener.onValidated();
+        if (mListener != null) {
+            mListener.onValidated();
+            mListener = null;
+        }
     }
 
     public void notifyCreated() {
-        mListener.onPinCreated();
+        if (mListener != null) {
+            mListener.onPinCreated();
+            mListener = null;
+        }
     }
 
     public void setDisplayType(PinDisplayType type) {
@@ -128,4 +138,9 @@ public class PinFragment extends DialogFragment implements PinFragmentImplement 
         }
     }
 
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        notifyCancelled();
+        super.onDismiss(dialog);
+    }
 }
